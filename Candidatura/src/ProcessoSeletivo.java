@@ -1,12 +1,50 @@
 //import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
+//import java.util.concurrent.ThreadLocalRandom;
 
 public class ProcessoSeletivo {
     public static void main(String[] args) throws Exception {
         //Scanner read = new Scanner(System.in);
-        selecionarCandidatos();
+        //selecionarCandidatos();
+		String [] candidatos = {"FELIPE","MÁRCIA","JULIA","PAULO","AUGUSTO","MÔNICA","FABRÍCIO","MIRELA","DANIELA","JORGE"};
+
+		for (String fulaninho : candidatos) {
+			entrandoEmContato(fulaninho);
+		}
     }
 
+	static void entrandoEmContato(String candidato){
+		int tentativasRealizadas = 1;
+		boolean continuarTentando = true;
+		boolean atendeu = false;
+
+		do {
+			// Dependendo do número, a variavel 'atendeu' vai continuar 'false' ou mudará para 'true'...
+			atendeu = atender();
+			// As duas variaveis são opostas entre si (como observado em suas declarações lá em cima), se 'atendeu' virar 'true', a 'continuarTentando' se tornará 'false'...
+			continuarTentando = !atendeu;
+
+			if (continuarTentando) {
+				tentativasRealizadas++;
+			}else{
+				System.out.println("\nContato realizado com sucesso.");
+			}
+		} while (continuarTentando && tentativasRealizadas<3);
+
+		// Notificando se conseguiu contato com o candidato...
+		if (atendeu) {
+			System.out.printf("Conseguimos contato com %s após %d tentativa(s).%n", candidato, tentativasRealizadas);
+		}else{
+			System.out.printf("%nNão conseguimos entrar com %s, mesmo após %d tentativas.%n", candidato, tentativasRealizadas);
+		}
+	}
+
+	// Método que simula se o candidato atendeu a ligação
+	static boolean atender(){
+		return new Random().nextInt(3)==1;
+	}
+
+	/*
     static void selecionarCandidatos(){
 		double salarioBase = 2000.0;
 		String [] candidatos = {"FELIPE","MÁRCIA","JULIA","PAULO","AUGUSTO","MÔNICA","FABRÍCIO","MIRELA","DANIELA","JORGE"};
@@ -34,4 +72,6 @@ public class ProcessoSeletivo {
     static double valorPretendido() {
         return ThreadLocalRandom.current().nextDouble(1800, 2200);
     }
+	*/
+
 }
